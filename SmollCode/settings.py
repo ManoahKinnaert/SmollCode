@@ -8,28 +8,26 @@ import json
 SMOLL_SETTINGS_FOLDER = pathlib.Path.home() / ".smollcode"
 
 class SettingsParser:
-
     BASIC_SETTINGS = {
         "version": "0.1 Beta",
 
         "default model": {
-            "provider": "",
-            "model": ""
+            "provider": "ollama",
+            "model": "llama3"
         },
 
         "providers": {
             "ollama": {
-                "api url": "http://127.0.0.1:11434/v1/",
-                "default models": {}
-            },
-
-            "openai": {
-                "api url": "https://api.openai.com/v1/",
-                "default models": {}
+                "api url": "http://127.0.0.1:11434/v1/chat/completions",
+                "default models": {
+                    "llama3": {
+                        "name": "llama3.2:3b"
+                    }
+                }
             },
 
             "anthropic": {
-                "api url": "https://api.anthropic.com/v1/",
+                "api url": "https://api.anthropic.com/v1/chat/completions",
                 "default models": {}
             },
         }
@@ -43,7 +41,15 @@ class SettingsParser:
 
     def get_current_default_model(self):
         return self._get("default model")
-    
+
+    def get_current_default_provider_url(self):
+        default_provider = self.get_current_default_model()["provider"]
+        return self._get("providers")[default_provider]["api url"]
+
+    def get_current_default_model_name(self):
+        model = self.get_current_default_model()["model"]
+        return self._get("providers")[self.get_current_default_model()["provider"]]["default models"][model]["name"]
+
     def get_model_providers(self):
         return self._get("providers").keys()
 
