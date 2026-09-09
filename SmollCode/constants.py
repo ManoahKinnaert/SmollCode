@@ -1,0 +1,16 @@
+# ANSI colors
+RESET, BOLD, DIM = "\033[0m", "\033[1m", "\033[2m"
+BLUE, CYAN, GREEN, YELLOW, RED = (
+    "\033[34m",
+    "\033[36m",
+    "\033[32m",
+    "\033[33m",
+    "\033[31m",
+)
+
+# some useful urls (providers)
+OLLAMA_LOCAL = "http://127.0.0.1:11434/v1/"
+OPENAI_BASE = "https://api.openai.com/v1/"
+ANTHROPIC_BASE = "https://api.anthropic.com/v1/"
+OPENROUTER_BASE = "https://openrouter.ai/api/v1/"
+GROQ_BASE = "https://api.groq.com/openai/v1/"
