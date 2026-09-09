@@ -10,9 +10,9 @@ def render_separator():
 def render_markdown(markdown: str, other: str=""):
     print(other + re.sub(r"\*\*(.+?)\*\*", rf"{BOLD}\1{RESET}", markdown))
 
-def user_input():
+def user_input(message: str=""):
     render_separator()
-    user_input = input(f"{BOLD}{GREEN}❯{RESET} ").strip()
+    user_input = input(f"{BOLD}{GREEN}{message} ❯{RESET} ").strip()
     render_separator()
     return user_input
 
