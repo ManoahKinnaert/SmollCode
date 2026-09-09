@@ -71,7 +71,6 @@ def bash(args):
     return "".join(output_lines).strip() or "(EMPTY)"
 
 # tool constants
-# tools
 TOOLS = {
     "read": (
         "Read file with line numbers (file path, not directory)",

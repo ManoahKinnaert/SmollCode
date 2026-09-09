@@ -12,7 +12,10 @@ def render_markdown(markdown: str, other: str=""):
     print(other + re.sub(r"\*\*(.+?)\*\*", rf"{BOLD}\1{RESET}", markdown))
 
 def user_input():
-    return input(f"{BOLD}{BLUE}❯{RESET} ").strip()
+    render_separator()
+    user_input = input(f"{BOLD}{GREEN}❯{RESET} ").strip()
+    render_separator()
+    return user_input
 
 def green_message(message: str):
     print(f"{GREEN}⏺ {message}{RESET}")
