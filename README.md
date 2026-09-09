@@ -5,6 +5,7 @@ A minimal coding agent terminal interface.
 - Agentic loop
 - Tools: write, read, edit, glob, grep, bash
 - Conversation history
+- No third party libraries
 
 ## Usage
 ```python
