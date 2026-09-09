@@ -2,7 +2,7 @@
 This file handles everything regarding settings.
 """
 
-import pathlib
+import pathlib, os
 import json
 
 SMOLL_SETTINGS_FOLDER = pathlib.Path.home() / ".smollcode"
@@ -47,3 +47,9 @@ class SettingsParser:
         data[key] = val 
         with open(self._file, "w") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
+
+    def settings_exist(self):
+        return os.path.exists(str(SMOLL_GENERAL_SETTINGS_FILE)) and os.path.exists(str(SMOLL_DEFAULT_MODELS_FILE))
+
+    def generate_basic_settings(self):
+        pass 
