@@ -31,7 +31,7 @@ class SettingsParser:
             "anthropic": {
                 "api url": "https://api.anthropic.com/v1/",
                 "default models": {}
-            }
+            },
         }
     }
 
@@ -58,6 +58,10 @@ class SettingsParser:
                 "default models": {}
             }
         })
+
+    # TODO: To be implemented
+    def add_model_to_provider(self, provider: str, model: str, details: str):
+        pass 
 
     # TODO: To be implemented
     def remove_provider(self, name: str):
