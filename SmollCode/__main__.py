@@ -1,11 +1,9 @@
-from render import *
+from views import title_display
+from render import user_input
 from tools import *
 
 def main():
-    render_title_logo()
-    render_separator()
-    render_markdown(markdown="Version: ** 0.1 beta ** | Provider: ** ** | ** Model: **")
-    render_separator()
+    title_display(version="0.1 Beta", model_provider="Ollama (local)", model="MyModel")
     user_input()
 
 if __name__ == "__main__":

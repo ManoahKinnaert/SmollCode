@@ -103,3 +103,10 @@ TOOLS = {
         bash,
     ),
 }
+
+# execute tool
+def execute_tool(name, args):
+    try:
+        return TOOLS[name][2](args)
+    except Exception as err:
+        pass    # error to be handled
