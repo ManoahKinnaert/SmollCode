@@ -7,8 +7,8 @@ def render_title_logo():
 def render_separator():
     print(f"{DIM}{'─' * min(os.get_terminal_size().columns, 90)}{RESET}")
 
-def render_markdown(markdown: str, other: str=""):
-    print(other + re.sub(r"\*\*(.+?)\*\*", rf"{BOLD}\1{RESET}", markdown))
+def render_markdown(markdown: str):
+    print(re.sub(r"\*\*(.+?)\*\*", rf"{BOLD}\1{RESET}", markdown))
 
 def user_input(message: str=""):
     render_separator()

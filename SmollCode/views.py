@@ -1,5 +1,4 @@
 from render import *
-import sys, tty, termios
 
 def title_display(version: str, model_provider: str=None, model: str=None):
     render_title_logo()

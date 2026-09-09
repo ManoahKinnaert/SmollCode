@@ -93,8 +93,8 @@ def agentic_loop(provider_url: str, model: str, api_key: str, settings_parser):
                 selected_model = model_selector(available_models)
                 model = settings_parser.get_model_name(provider=selected_provider, model=available_models[selected_model])
                 provider_url = settings_parser.get_provider_url(selected_provider)
-                # TODO: display message that user indeed has switched model, will update in the future
-                yellow_message(f"Switched to: Provider: {selected_provider} model: {model}")
+                # indicate that user has switched model
+                render_markdown(f"Switched model | Provider: **{selected_provider}** | model: **{model}**")
                 continue
 
             messages.append({
