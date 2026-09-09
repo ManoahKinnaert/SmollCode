@@ -1,6 +1,5 @@
 from constants import *
-import os 
-import re
+import os, re, getpass
 
 def render_title_logo():
     print(f"{BOLD}{RED}{LOGO}{RESET}\n")
@@ -17,10 +16,16 @@ def user_input():
     render_separator()
     return user_input
 
+def get_secure(message: str):
+    render_separator()
+    secret = getpass.getpass(f"{BOLD}{YELLOW}{message} ❯{RESET} ")
+    render_separator()
+    return secret
+
 def green_message(message: str):
     print(f"{GREEN}⏺ {message}{RESET}")
 
-def warning(message: str):
+def error(message: str):
     print(f"{RED}\u203C {message}{RESET}")
 
 def cyan_message(message: str):
