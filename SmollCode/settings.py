@@ -6,19 +6,37 @@ import pathlib, os
 import json
 
 SMOLL_SETTINGS_FOLDER = pathlib.Path.home() / ".smollcode"
-SMOLL_GENERAL_SETTINGS_FILE = SMOLL_SETTINGS_FOLDER / "general.json"
-SMOLL_DEFAULT_MODELS_FILE = SMOLL_SETTINGS_FOLDER / "default_models.json"
 
 class SettingsParser:
+
+    BASIC_SETTINGS = {
+        "version": "0.1 Beta",
+
+        "providers": {
+            "ollama": {
+                "api url": "http://127.0.0.1:11434/v1/",
+                "default models": {}
+            },
+
+            "openai": {
+                "api url": "https://api.openai.com/v1/",
+                "default models": {}
+            },
+
+            "anthropic": {
+                "api url": "https://api.anthropic.com/v1/",
+                "default models": {}
+            }
+        }
+    }
+
     def __init__(self):
-        self._file: str | None = None
+        self._file: str | None = str(SMOLL_SETTINGS_FOLDER / "settings.json")
 
     def get_version(self):
-        self._file = str(SMOLL_GENERAL_SETTINGS_FILE)
         return self._get("version")
 
     def get_current_default_model(self):
-        self._file = str(SMOLL_DEFAULT_MODELS_FILE)
         return self._get("default")
 
     def get_current_default_model_details(self):
@@ -26,11 +44,9 @@ class SettingsParser:
         return self._get("providers")[default["provider"]]["models"][default["model"]]
     
     def get_default_model_providers(self):
-        self._file = str(SMOLL_DEFAULT_MODELS_FILE)
         return self._get("providers").keys()
 
     def get_default_models(self, provider: str):
-        self._file = str(SMOLL_DEFAULT_MODELS_FILE)
         if provider in self.get_default_model_providers():
             return self._get("providers")[provider]["models"]
 
@@ -49,7 +65,10 @@ class SettingsParser:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
     def settings_exist(self):
-        return os.path.exists(str(SMOLL_GENERAL_SETTINGS_FILE)) and os.path.exists(str(SMOLL_DEFAULT_MODELS_FILE))
+        return os.path.exists(self._file)
 
     def generate_basic_settings(self):
-        pass 
+        os.makedirs(SMOLL_SETTINGS_FOLDER)
+        
+        with open(self._file, "w") as file:
+            json.dump(self.BASIC_SETTINGS, file, ensure_ascii=False, indent=4)

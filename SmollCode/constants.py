@@ -16,10 +16,3 @@ LOGO = r"""
  ███████║ ██║ ╚═╝ ██║ ╚██████╔╝ ███████╗  ███████╗ ╚██████╗ ╚██████╔╝ ██████╔╝ ███████╗
  ╚══════╝ ╚═╝     ╚═╝  ╚═════╝  ╚══════╝  ╚══════╝  ╚═════╝  ╚═════╝  ╚═════╝  ╚══════╝
 """
-
-# some useful urls (providers)
-OLLAMA_LOCAL = "http://127.0.0.1:11434/v1/"
-OPENAI_BASE = "https://api.openai.com/v1/"
-ANTHROPIC_BASE = "https://api.anthropic.com/v1/"
-OPENROUTER_BASE = "https://openrouter.ai/api/v1/"
-GROQ_BASE = "https://api.groq.com/openai/v1/"
