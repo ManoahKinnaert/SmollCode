@@ -1,5 +1,6 @@
 from tools import TOOLS, execute_tool
 from render import *
+from views import provider_selector, model_selector
 import urllib.request, json, os
 
 
@@ -63,7 +64,7 @@ def call_api(history, prompt, api_url: str, api_key: str, model: str):
         raise
 
 
-def agentic_loop(provider_url: str, model: str, api_key: str):
+def agentic_loop(provider_url: str, model: str, api_key: str, settings_parser):
     messages = []
     sys_prompt = f"Concise coding assistant, cwd: {os.getcwd()}"
 
@@ -80,6 +81,20 @@ def agentic_loop(provider_url: str, model: str, api_key: str):
             if user_in == "/clear":
                 messages = []
                 green_message("Cleared conversation history!")
+                continue
+
+            if user_in == "/model":
+                # select provider
+                available_providers = settings_parser.get_model_providers()
+                selected_provider = provider_selector(available_providers)
+                selected_provider = available_providers[selected_provider]
+                # select model
+                available_models = settings_parser.get_model_names(selected_provider)
+                selected_model = model_selector(available_models)
+                model = settings_parser.get_model_name(provider=selected_provider, model=available_models[selected_model])
+                provider_url = settings_parser.get_provider_url(selected_provider)
+                # TODO: display message that user indeed has switched model, will update in the future
+                yellow_message(f"Switched to: Provider: {selected_provider} model: {model}")
                 continue
 
             messages.append({

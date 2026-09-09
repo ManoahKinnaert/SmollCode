@@ -13,13 +13,17 @@ class SettingsParser:
 
         "default model": {
             "provider": "ollama",
-            "model": "llama3"
+            "model": "qwen3"
         },
 
         "providers": {
             "ollama": {
-                "api url": "http://127.0.0.1:11434/v1/chat/completions",
-                "default models": {
+                "api": "http://127.0.0.1:11434/v1/chat/completions",
+                "models": {
+                    "qwen3": {
+                        "name": "qwen3.5:latest"
+                    },
+
                     "llama3": {
                         "name": "llama3.2:3b"
                     }
@@ -27,8 +31,8 @@ class SettingsParser:
             },
 
             "anthropic": {
-                "api url": "https://api.anthropic.com/v1/chat/completions",
-                "default models": {}
+                "api": "https://api.anthropic.com/v1/chat/completions",
+                "models": {}
             },
         }
     }
@@ -44,24 +48,33 @@ class SettingsParser:
 
     def get_current_default_provider_url(self):
         default_provider = self.get_current_default_model()["provider"]
-        return self._get("providers")[default_provider]["api url"]
+        return self._get("providers")[default_provider]["api"]
+
+    def get_provider_url(self, provider: str):
+        return self._get("providers")[provider]["api"]
 
     def get_current_default_model_name(self):
         model = self.get_current_default_model()["model"]
-        return self._get("providers")[self.get_current_default_model()["provider"]]["default models"][model]["name"]
+        return self._get("providers")[self.get_current_default_model()["provider"]]["models"][model]["name"]
 
     def get_model_providers(self):
-        return self._get("providers").keys()
+        return list(self._get("providers").keys())
 
     def get_models(self, provider: str):
-        if provider in self.get_default_model_providers():
+        if provider in self.get_model_providers():
             return self._get("providers")[provider]["models"]
+
+    def get_model_names(self, provider: str):
+        return list(self.get_models(provider).keys())
+
+    def get_model_name(self, provider: str, model: str):
+        return self.get_models(provider)[model]["name"]
 
     def add_provider(self, name: str, api_url: str):
         self._set(key="providers", val={
             name: {
                 "api url": api_url,
-                "default models": {}
+                "models": {}
             }
         })
 
@@ -75,8 +88,7 @@ class SettingsParser:
 
     # basic get and set methods (for reading and writing settings)
     def _get(self, key: str):
-        with open(self._file, "r") as file:
-            return self._get_all()[key] 
+        return self._get_all()[key] 
 
     def _get_all(self):
         with open(self._file, "r") as file: return json.load(file)

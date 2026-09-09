@@ -14,16 +14,20 @@ def title_display(version: str, model_provider: str=None, model: str=None):
 def selector(title: str, options: list):
     # render the title
     render_markdown(markdown=title)
-    for i, _ in enumerate(options): options[i] = f"({i}) {options[i]}"
-    markdown = str(options).replace("[", "").replace("]", "").replace(",", "").replace("'", "")
+    _options = options.copy()  # make copy
+    for i, _ in enumerate(_options): _options[i] = f"({i}) {_options[i]}"
+    markdown = str(_options).replace("[", "").replace("]", "").replace(",", "").replace("'", "")
     render_markdown(markdown=markdown)
-    user_input(f"Choose Option (0 to {len(options) - 1})")
+    selected_option: str = user_input(f"Choose Option (0 to {len(_options) - 1})")
+    # TODO: false input handling
+    if not selected_option.isnumeric(): pass 
+    return int(selected_option)
 
 def get_api_key():
     return get_secure("Enter API key") 
 
 def provider_selector(providers):
-    selector(title="** Choose a provider: **", options=providers)
+    return selector(title="** Choose a provider: **", options=providers)
 
 def model_selector(models):
-    selector(title="** Choose a model: ", options=models)
+    return selector(title="** Choose a model: **", options=models)
