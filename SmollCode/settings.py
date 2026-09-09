@@ -12,6 +12,11 @@ class SettingsParser:
     BASIC_SETTINGS = {
         "version": "0.1 Beta",
 
+        "default model": {
+            "provider": "",
+            "model": ""
+        },
+
         "providers": {
             "ollama": {
                 "api url": "http://127.0.0.1:11434/v1/",
@@ -37,18 +42,26 @@ class SettingsParser:
         return self._get("version")
 
     def get_current_default_model(self):
-        return self._get("default")
-
-    def get_current_default_model_details(self):
-        default = self.get_current_default_model() 
-        return self._get("providers")[default["provider"]]["models"][default["model"]]
+        return self._get("default model")
     
-    def get_default_model_providers(self):
+    def get_model_providers(self):
         return self._get("providers").keys()
 
-    def get_default_models(self, provider: str):
+    def get_models(self, provider: str):
         if provider in self.get_default_model_providers():
             return self._get("providers")[provider]["models"]
+
+    def add_provider(self, name: str, api_url: str):
+        self._set(key="providers", val={
+            name: {
+                "api url": api_url,
+                "default models": {}
+            }
+        })
+
+    # TODO: To be implemented
+    def remove_provider(self, name: str):
+        pass 
 
     # basic get and set methods (for reading and writing settings)
     def _get(self, key: str):
@@ -69,6 +82,6 @@ class SettingsParser:
 
     def generate_basic_settings(self):
         os.makedirs(SMOLL_SETTINGS_FOLDER)
-        
+
         with open(self._file, "w") as file:
             json.dump(self.BASIC_SETTINGS, file, ensure_ascii=False, indent=4)
