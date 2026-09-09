@@ -10,3 +10,21 @@ def render_separator():
 
 def render_markdown(markdown: str, other: str=""):
     print(other + re.sub(r"\*\*(.+?)\*\*", rf"{BOLD}\1{RESET}", markdown))
+
+def user_input():
+    return input(f"{BOLD}{BLUE}❯{RESET} ").strip()
+
+def green_message(message: str):
+    print(f"{GREEN}⏺ {message}{RESET}")
+
+def warning(message: str):
+    print(f"{RED}\u203C {message}{RESET}")
+
+def cyan_message(message: str):
+    print(f"{CYAN}{message}{RESET}")
+
+def yellow_message(message: str):
+    print(f"{YELLOW}{message}{RESET}")
+
+def indicate_tool_use(tool_name: str, arg_preview: str):
+    print(f"\n{GREEN}⏺ {tool_name.capitalize()}{RESET}({DIM}{arg_preview}{RESET})")
