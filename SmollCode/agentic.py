@@ -70,7 +70,7 @@ def call_api(history, prompt, api_url: str, api_key: str, model: str):
 # util function for computing tokens of chat
 def compute_tokens(api_url: str, api_key: str, model: str, history):
     request = urllib.request.Request(
-        f"{api_url}/repsonses/input_tokens",
+        f"{api_url}/responses/input_tokens",
         data=json.dumps({
             "model": model,
             "messages": history,
