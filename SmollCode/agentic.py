@@ -101,15 +101,15 @@ def agentic_loop(provider_url: str, model: str, api_key: str, settings_parser):
             if not user_in:
                 continue
 
-            if user_in in ("/q", "/exit", "/quit"):
+            if user_in.lower() in ("/q", "/exit", "/quit"):
                 break
 
-            if user_in == "/clear":
+            if user_in.lower() == "/clear":
                 messages = []
                 green_message("Cleared conversation history!")
                 continue
 
-            if user_in == "/model":
+            if user_in.lower() == "/model":
                 # select provider
                 available_providers = settings_parser.get_model_providers()
                 selected_provider = provider_selector(available_providers)
