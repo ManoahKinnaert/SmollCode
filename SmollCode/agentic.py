@@ -1,7 +1,7 @@
 from tools import TOOLS, execute_tool
 from render import *
 from views import provider_selector, model_selector
-import urllib.request, json, os
+import urllib.request, urllib.error, json, os
 
 
 def make_schema():
@@ -40,7 +40,7 @@ def make_schema():
 
 def call_api(history, prompt, api_url: str, api_key: str, model: str):
     request = urllib.request.Request(
-        api_url,
+        f"{api_url}/chat/completions",
         data=json.dumps({
             "model": model,
             "max_tokens": 8192,
@@ -63,7 +63,29 @@ def call_api(history, prompt, api_url: str, api_key: str, model: str):
         print(e.read().decode())
         raise
 
+# util function for computing tokens of chat
+def compute_tokens(api_url: str, api_key: str, model: str, history):
+    request = urllib.request.Request(
+        f"{api_url}/repsonses/input_tokens",
+        data=json.dumps({
+            "model": model,
+            "messages": history,
 
+        }).encode(),
+        headers={
+            "Content-Type": "application/json",
+            **({"Authorization": f"Bearer {api_key}"} if api_key else {})
+        }
+    ) 
+
+    try:
+        response = urllib.request.urlopen(request)
+        return json.loads(response.read())
+    except urllib.error.HTTPError as e:
+        if e.code == 404: yellow_message("It doesn't look like this API supports token compute at this time.")
+        else: yellow_message(e.read().decode())
+        return "Unknown"
+        
 def agentic_loop(provider_url: str, model: str, api_key: str, settings_parser):
     messages = []
     sys_prompt = f"Concise coding assistant, cwd: {os.getcwd()}"
@@ -157,6 +179,7 @@ def agentic_loop(provider_url: str, model: str, api_key: str, settings_parser):
                     })
 
             print()
+            render_markdown(f"Total used tokens: **{compute_tokens(provider_url, api_key, model, messages)}**")
 
         except (KeyboardInterrupt, EOFError):
             yellow_message("\nExiting...")

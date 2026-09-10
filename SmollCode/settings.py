@@ -18,7 +18,7 @@ class SettingsParser:
 
         "providers": {
             "ollama": {
-                "api": "http://127.0.0.1:11434/v1/chat/completions",
+                "api": "http://127.0.0.1:11434/v1",
                 "models": {
                     "qwen3": {
                         "name": "qwen3.5:latest"
@@ -31,7 +31,7 @@ class SettingsParser:
             },
 
             "anthropic": {
-                "api": "https://api.anthropic.com/v1/chat/completions",
+                "api": "https://api.anthropic.com/v1",
                 "models": {}
             },
         }
