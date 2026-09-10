@@ -3,6 +3,7 @@ This file contains tool implementations for SmollCode.
 """
 
 from constants import DIM, RESET
+from render import error
 import os, glob as glib, re, subprocess
 
 # tool definitions
@@ -110,4 +111,4 @@ def execute_tool(name, args):
     try:
         return TOOLS[name][2](args)
     except Exception as err:
-        pass    # error to be handled
+        error(err)
