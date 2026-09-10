@@ -1,3 +1,7 @@
+"""
+Some helpful function for rendering certain views.
+"""
+
 from render import *
 
 def title_display(version: str, model_provider: str=None, model: str=None):

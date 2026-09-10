@@ -1,3 +1,7 @@
+"""
+This file contains everything concerning agentic stuff, from api calls to function tool calling.
+"""
+
 from tools import TOOLS, execute_tool
 from render import *
 from views import provider_selector, model_selector

@@ -1,6 +1,7 @@
 """
 This file contains tool implementations for SmollCode.
 """
+
 from constants import DIM, RESET
 import os, glob as glib, re, subprocess
 

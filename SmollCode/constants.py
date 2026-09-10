@@ -1,3 +1,7 @@
+"""
+Some constants.
+"""
+
 # ANSI colors
 RESET, BOLD, DIM = "\033[0m", "\033[1m", "\033[2m"
 BLUE, CYAN, GREEN, YELLOW, RED = (

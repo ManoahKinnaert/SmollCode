@@ -1,3 +1,7 @@
+"""
+Main file...
+"""
+
 from views import title_display, get_api_key
 from agentic import agentic_loop
 from tools import *

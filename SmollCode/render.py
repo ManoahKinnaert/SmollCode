@@ -1,3 +1,7 @@
+"""
+Some useful rendering functions.
+"""
+
 from constants import *
 import os, re, getpass
 
