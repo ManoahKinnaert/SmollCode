@@ -2,8 +2,8 @@
 This file contains tool implementations for SmollCode.
 """
 
-from constants import DIM, RESET
-from render import error
+from SmollCode.constants import DIM, RESET
+from SmollCode.render import error
 import os, glob as glib, re, subprocess
 
 # tool definitions

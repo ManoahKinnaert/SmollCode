@@ -2,7 +2,7 @@
 Some useful rendering functions.
 """
 
-from constants import *
+from SmollCode.constants import *
 import os, re, getpass
 
 def render_title_logo():

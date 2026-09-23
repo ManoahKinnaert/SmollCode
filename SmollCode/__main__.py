@@ -2,10 +2,10 @@
 Main file...
 """
 
-from views import title_display, get_api_key
-from agentic import agentic_loop
-from tools import *
-from settings import SettingsParser
+from SmollCode.views import title_display, get_api_key
+from SmollCode.agentic import agentic_loop
+from SmollCode.tools import *
+from SmollCode.settings import SettingsParser
 import os 
 
 def main():
