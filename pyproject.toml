@@ -14,4 +14,4 @@ dependencies = []
 include-package-data = true
 
 [tool.setuptools.packages.find]
-include = ["StatDistributions"]
+include = ["SmollCode"]
