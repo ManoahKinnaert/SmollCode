@@ -7,9 +7,20 @@ A minimal coding agent terminal interface.
 - Conversation history
 - No third party libraries
 
+## Installation
+1) From source
+```bash
+git clone https://github.com/ManoahKinnaert/SmollCode.git 
+cd SmollCode && python -m pip install -e .
+```
+2) Or directly
+```bash
+python -m pip install git+https://github.com/ManoahKinnaert/SmollCode.git
+```
+
 ## Usage
 ```python
-python SmollCode
+python -m SmollCode
 ```
 And of you go...
 

@@ -9,3 +9,6 @@ description = "A minimal agentic coding terminal interface"
 authors = [{name = "Manoah Kinnaert"}]
 requires-python = ">=3.7"
 dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["StatDistributions"]
