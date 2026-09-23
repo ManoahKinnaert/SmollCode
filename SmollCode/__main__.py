@@ -21,7 +21,7 @@ def main():
     # register api key
     API_KEY = os.environ.get("API_KEY")
     if API_KEY is None:
-        API_KEY = get_api_key()
+        API_KEY = get_api_key(settings_parser.get_current_default_provider_url())
     
     agentic_loop(provider_url=settings_parser.get_current_default_provider_url(), model=settings_parser.get_current_default_model_name(), api_key=API_KEY, settings_parser=settings_parser)
 

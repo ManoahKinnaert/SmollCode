@@ -3,6 +3,7 @@ Some helpful function for rendering certain views.
 """
 
 from render import *
+import urllib.request, urllib.error
 
 def title_display(version: str, model_provider: str=None, model: str=None):
     render_title_logo()
@@ -26,8 +27,25 @@ def selector(title: str, options: list):
     if not selected_option.isnumeric(): pass 
     return int(selected_option)
 
-def get_api_key():
-    return get_secure("Enter API key") 
+def get_api_key(api_url: str):
+    api_key = get_secure("Enter API key") 
+    # we want to check if the api key is valid or not...
+    request = urllib.request.Request(
+        f"{api_url}/models",
+        headers={
+            "Content-Type": "application/json",
+            **({"Authorization": f"Bearer {api_key}"} if api_key else {})
+        }
+    )
+
+    try:
+        response = urllib.request.urlopen(request)
+        if response.read() == 200:
+            print("test")
+    except urllib.error.HTTPError as e:
+        print(e.read().decode())
+        raise
+    return api_key
 
 def provider_selector(providers):
     return selector(title="** Choose a provider: **", options=providers)
